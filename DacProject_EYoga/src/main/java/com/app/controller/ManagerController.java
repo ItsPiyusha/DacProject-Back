@@ -1,9 +1,9 @@
 package com.app.controller;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +17,8 @@ import com.app.service.IManagerService;
 
 @RestController // => @Controller at class level +
 	//@ResponseBody annotation added on ret types of all req handling methods
-	@RequestMapping("/manager")
+@CrossOrigin(origins = "http://localhost:4200")	
+@RequestMapping("/manager")
 	public class ManagerController {
 		// dependency
 		@Autowired
@@ -30,6 +31,7 @@ import com.app.service.IManagerService;
 		// RESTful end point or API end point or API provider
 		//for retrieve the details of one manager
 		@GetMapping
+		@CrossOrigin(origins = "http://localhost:4200")
 		public ResponseEntity<?> listAllManager() {
 			System.out.println("in list all manager");
 			// invoke service layer's method : controller --> service impl (p) --->JPA
@@ -57,6 +59,7 @@ import com.app.service.IManagerService;
 		 
 
 		@GetMapping("/{managerId}")
+		@CrossOrigin(origins = "http://localhost:4200")
 		public ResponseEntity<?> getManagerDetailsById(@PathVariable  int managerId) 
 		{
 			System.out.println("in get Manager details " + managerId);
@@ -74,7 +77,8 @@ import com.app.service.IManagerService;
 		
 		  // req handling method to create a new manager : post
 		  
-		  @PostMapping 
+		  @PostMapping
+		  @CrossOrigin(origins = "http://localhost:4200")
 		  public ResponseEntity<?> addManagerDetails(@RequestBody Manager m)
 		  
 		  {
@@ -95,6 +99,7 @@ import com.app.service.IManagerService;
 		  // req handling method to update existing Manager data
 		  
 		 @PutMapping("/{managerID}") 
+		 @CrossOrigin(origins = "http://localhost:4200")
 		    public ResponseEntity<?> updateManagerDetails(@PathVariable int managerID, @RequestBody Manager m) 
 		 {
 			  System.out.println("in update " + managerID + " " + m); 
@@ -110,12 +115,18 @@ import com.app.service.IManagerService;
 		 }
 		 
 		 @DeleteMapping("/{managerID}")
+		 @CrossOrigin(origins = "http://localhost:4200")
 		 public String deleteManager(@PathVariable int managerID)
 		 {
 			 System.out.println("in delete center"+managerID);
 			 return service.deleteManager(managerID);
 			 
 		 }
+		
+		 
+	
+		 
+		 
 	}
 
 

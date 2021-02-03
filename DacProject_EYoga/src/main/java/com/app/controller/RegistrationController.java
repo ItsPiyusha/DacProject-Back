@@ -3,16 +3,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.pojos.User;
-import com.app.service.UserServiceImpl;
+import com.app.service.RegistrationServiceImpl;
 
 
 @RestController // => @Controller at class level +
 	//@ResponseBody annotation added on ret types of all req handling methods
 
-//@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 public class RegistrationController {
 	@Autowired
-	public UserServiceImpl service;
+	public RegistrationServiceImpl service;
 	
 	@PostMapping("/registeruser")
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -27,7 +27,14 @@ public class RegistrationController {
 		}
 		User userobj = null;
 		userobj=service.saveUser(user);
-		return userobj;
+		if (userobj != null) {
+			 service.sendAccountRegisterEmail(userobj);
+				return userobj;
+			}
+			return null;
+	
+		
+		
 		
 }
 

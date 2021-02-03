@@ -11,6 +11,6 @@ import com.app.pojos.Teacher;
 public interface TeacherRepository extends JpaRepository <Teacher, Integer>
 {
 	
-		//Center findByName(String cname);
+		//Teacher findByName(String cname);
 		Teacher findById(int id);
 }

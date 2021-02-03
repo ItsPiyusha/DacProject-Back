@@ -22,5 +22,9 @@ public interface IManagerService {
 	  
 	  String deleteManager(int managerID);
 	  
+	  //String deleteManagerByName(String firstname);
+	  
+	  Manager fetchManagerByEmailAndPassword(String email, String password);
+	  
 	 
 }

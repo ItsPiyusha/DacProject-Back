@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -12,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  * The persistent class for the teacher database table.
  * 
  */
-@SuppressWarnings("unused")
 @Entity
 @Table(name="teacher")
 @NamedQuery(name="Teacher.findAll", query="SELECT t FROM Teacher t")
@@ -55,9 +55,11 @@ public class Teacher implements Serializable {
 	private Course course;
 
 	//bi-directional many-to-one association to Center
-	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(targetEntity = Center.class)
+
 	@JoinColumn(name="CenterId", nullable=false)
-	@JsonBackReference
+	//@JsonBackReference
     private Center center;
 
 	public Teacher() {
@@ -158,20 +160,7 @@ public class Teacher implements Serializable {
 		this.center = center;
 	}
 
-	public void addCourse(Course c)
-	{
-		//p--->c
-		this.course=c;
-		//c ---> p
-		c.setTeacher(this);
-	}
-	public void removeCourse(Course c)
-	{
-		//p-X-->c
-		this.course=null;
-		//c -X--> p
-		c.setTeacher(null);
-	}
+	
 
 
 	@Override

@@ -3,16 +3,13 @@ package com.app.pojos;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.util.List;
 
 
 /**
  * The persistent class for the center database table.
  * 
  */
-@SuppressWarnings("unused")
 @Entity
 @Table(name="center")
 @NamedQuery(name="Center.findAll", query="SELECT c FROM Center c")
@@ -40,25 +37,24 @@ public class Center implements Serializable {
 
 	//bi-directional many-to-one association to Teacher
 	@OneToMany(mappedBy="center")
-	@JsonManagedReference
-	private List<Teacher> teachers;
+	
 
 	//bi-directional one-to-one association to Manager
 	@OneToOne
 	@JoinColumn(name = "ManagerID",nullable = false)
-	private Manager manager;
+   private Manager manager;
 
 	public Center() {
 	}
 	
-	public Center(Integer id, String address, String name, String contactNumber, List<Teacher> teachers,
+	public Center(Integer id, String address, String name, String contactNumber,
 			Manager manager) {
 		super();
 		this.id = id;
 		this.address = address;
 		this.name = name;
 		this.contactNumber = contactNumber;
-		this.teachers = teachers;
+	
 		this.manager = manager;
 	}
 
@@ -100,27 +96,9 @@ public class Center implements Serializable {
 	}
 
 
-	public List<Teacher> getTeachers() {
-		return this.teachers;
-	}
 
-	public void setTeachers(List<Teacher> teachers) {
-		this.teachers = teachers;
-	}
 
-	public Teacher addTeacher(Teacher teacher) {
-		getTeachers().add(teacher);
-		teacher.setCenter(this);
-
-		return teacher;
-	}
-
-	public Teacher removeTeacher(Teacher teacher) {
-		getTeachers().remove(teacher);
-		teacher.setCenter(null);
-
-		return teacher;
-	}
+	
 
 	public Manager getManager() {
 		return this.manager;
@@ -133,7 +111,7 @@ public class Center implements Serializable {
 	@Override
 	public String toString() {
 		return "Center [id=" + id + ", address=" + address + ", name=" + name
-				+ ", contactNumber=" + contactNumber + ", teachers=" + teachers + ", manager=" + manager + "]";
+				+ ", contactNumber=" + contactNumber + ", manager=" + manager + "]";
 	}
 
 	

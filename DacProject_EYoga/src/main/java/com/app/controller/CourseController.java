@@ -7,24 +7,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.pojos.Center;
-import com.app.service.ICenterService;
+
+import com.app.pojos.Course;
+import com.app.service.ICourseService;
 
 
 @RestController // => @Controller at class level +
 	//@ResponseBody annotation added on ret types of all req handling methods
 //@CrossOrigin(origins= {"http://localhost:4200"})
 @Validated
-@CrossOrigin(origins = "http://localhost:4200")	
-
-	@RequestMapping("/center")
-	public class CenterController {
+	@RequestMapping("/course")
+	public class CourseController {
 		// dependency
 		@Autowired
-		private ICenterService service;
+		private ICourseService service;
 	
 
-		public CenterController() {
+		public CourseController() {
 			System.out.println("in ctor of " + getClass().getName());
 		}
 
@@ -32,54 +31,42 @@ import com.app.service.ICenterService;
 		@GetMapping
 		@CrossOrigin(origins= {"http://localhost:4200"})
 
-		public ResponseEntity<?> listAllCenter() {
+		public ResponseEntity<?> listAllCourse() {
 			System.out.println("in list all ");
 			// invoke service layer's method : controller --> service impl (p) --->JPA
 			// repo's impl class(SC)
-			List<Center> center = service.getAllCenters();
-			if (center.isEmpty())
+			List<Course> course = service.getAllCourses();
+			if (course.isEmpty())
 				// empty  list : set sts code : HTTP 204 (no contents)
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			// in case of non empty list : OK, send the list
-			return  ResponseEntity.ok(center);  //200 ok
+			return  ResponseEntity.ok(course);  //200 ok
 		}
 
-		
-		@GetMapping("/{centerId}")
+		// get prduct details by its name : supplied by clnt using path var
+		@GetMapping("/{courseId}")
 		@CrossOrigin(origins= {"http://localhost:4200"})
 
-		public ResponseEntity<?> getCenterDetailsById(@PathVariable int centerId) {
-		System.out.println("in get  details " + centerId);
-
-		Center centerDetails = service.getCenterDetailsById(centerId);
-			
-		if (centerDetails !=null)
-		return ResponseEntity.ok(centerDetails);
-
+		public ResponseEntity<?> getCourseDetailsById(@PathVariable int courseId) {
+		System.out.println("in get  details " + courseId);
+			// invoke service method
+		Course Details = service.getCourseDetailsById(courseId);
+			// valid name : HTTP 200 , marshalled center details
+		if (Details!=null)
+		return ResponseEntity.ok(Details);
+			// in case of invalid name : HTTP 404
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		@CrossOrigin(origins= {"http://localhost:4200"})
-		@GetMapping("/Id/{id}")
-		public ResponseEntity<?> getDetailsBytId(@PathVariable int id) {
-			System.out.println("in get  details " + id);
-				// invoke service method
-			Center Details = service.findByManager(id);
-				// valid name : HTTP 200 , marshalled center details
-			if (Details!=null)
-			return ResponseEntity.ok(Details);
-				// in case of invalid name : HTTP 404
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
 		
-		
-		  @GetMapping("/name/{CenterName}")
+		  @GetMapping("/name/{courseName}")
 		  @CrossOrigin(origins= {"http://localhost:4200"})
 
-		  public ResponseEntity<?>getCenterDetails(@PathVariable String CenterName) 
+		  public ResponseEntity<?>getCourseDetails(@PathVariable String courseName) 
 		  {
-		  System.out.println("in get  details " + CenterName); 
-		  Center Details = service.getCenterDetails(CenterName);
+		  System.out.println("in get  details " + courseName); 
+		  // invoke s  method
+		  Course Details = service.getCourseDetails(courseName);
 		  //valid name : HTTP 200 , marshalled center details 
 		  if (Details!=null)
 		  return ResponseEntity.ok(Details); // in case of invalid name : HTTP404
@@ -91,12 +78,12 @@ import com.app.service.ICenterService;
 		  @PostMapping 
 		  @CrossOrigin(origins= {"http://localhost:4200"})
 
-		  public ResponseEntity<?> addCenterDetails(@RequestBody @Valid Center p)
+		  public ResponseEntity<?> addCourseDetails(@RequestBody @Valid Course p)
 		  {
 		  System.out.println("in add center " + p); 
 		  
 		  try { 
-			  Center c =service.addCenterDetails(p); 
+			  Course c =service.addCourseDetails(p); 
 			  return  ResponseEntity.ok(c);
 		  
 		  }
@@ -108,15 +95,15 @@ import com.app.service.ICenterService;
 		  }
 		  
 		  
-		 @PutMapping("update/{centerID}") 
+		 @PutMapping("/update/{courseID}") 
 		 @CrossOrigin(origins= {"http://localhost:4200"})
 
-		    public ResponseEntity<?> updateCenterDetails(@PathVariable int centerID, @RequestBody Center p) 
+		    public ResponseEntity<?> updateCourseDetails(@PathVariable int courseID, @RequestBody Course p) 
 		 {
-		  System.out.println("in update " + centerID + " " + p); 
+		  System.out.println("in update " + courseID + " " + p); 
 		  try 
 		  {
-			  Center updatedDetails = service.updateCenterDetails(centerID, p); 
+			  Course updatedDetails = service.updateCourseDetails(courseID, p); 
 			  return  ResponseEntity.ok(updatedDetails); 
 			  } 
 		  catch (RuntimeException e)
@@ -125,13 +112,13 @@ import com.app.service.ICenterService;
 		  }
 		  
 		 }
-		 @DeleteMapping("/{centerID}")
+		 @DeleteMapping("/{courseID}")
 		 @CrossOrigin(origins= {"http://localhost:4200"})
 
-		 public String deleteCenter(@PathVariable int centerID)
+		 public String deleteCourse(@PathVariable int courseID)
 		 {
-			 System.out.println("in delete center"+centerID);
-			 return service.deleteCenter(centerID);
+			 System.out.println("in delete center"+courseID);
+			 return service.deleteCourse(courseID);
 			 
 		 }
 		 

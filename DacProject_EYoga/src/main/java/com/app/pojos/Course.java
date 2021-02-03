@@ -3,6 +3,7 @@ package com.app.pojos;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDate;
@@ -26,8 +27,8 @@ public class Course implements Serializable {
 	
 	private Integer id;
 	
-	@Column(name="Name", nullable=false, length=45)
-	private String Name;
+	@Column(name="name", length=45)
+	private String name;
 
 	@Column(name="BeginDate")
 	private LocalDate beginDate;
@@ -35,7 +36,7 @@ public class Course implements Serializable {
 	@Column(name="EndDate")
 	private LocalDate endDate;
 
-	@Column(name="Availabilty",nullable=false, length=45)
+	@Column(name="Availabilty", length=45)
 	private String availability;
 	
    @Column(name="Time")
@@ -44,56 +45,56 @@ public class Course implements Serializable {
 	@Column(name="Capacity")
 	private Integer capacity;
 
-	@Column(name="Duration",nullable=false)
+	@Column(name="Duration")
 	private double duration;
 
 	
-	@Column(name="EligibilityCriteria",nullable=false, length=45)
+	@Column(name="EligibilityCriteria", length=45)
 	private Integer eligibilityCriteria;
 
 
 
 
 
-	@Column(name="Location",nullable=false, length=200)
+	@Column(name="Location", length=200)
 	private String location;
 
 
-	@Column(name="Mode",nullable=false, length=45)
+	@Column(name="Mode", length=45)
 	private String mode;
 
 
 
-	@Column(name="Status",nullable=false, length=45)
+	@Column(name="Status", length=45)
 	private String status;
 
+	@Column(name="Fees", length=45)
+	private double fees;
 	
 
 	//bi-directional one-to-one association to Teacher
 	@OneToOne
 	@JoinColumn(name="TeacherID", nullable=false)
+	//@JsonBackReference
 	private Teacher teacher;
 
+	
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="course")
-	@JsonManagedReference
-	private List<User> users;
 
 	public Course() {
 	}
 
 	
 	
-	public Course(Integer id, String availability, LocalDate beginDate, Integer capacity, String Name,
+	public Course(Integer id, String availability, LocalDate beginDate, Integer capacity, String name,
 			double duration, Integer eligibilityCriteria, LocalDate endDate, String location, String mode,
-			String status, LocalTime time, Teacher teacher, List<User> users) {
+			String status, LocalTime time, Teacher teacher,double fees) {
 		super();
 		this.id = id;
 		this.availability = availability;
 		this.beginDate = beginDate;
 		this.capacity = capacity;
-		this.Name = Name;
-
+		this.name = name;
 		this.duration = duration;
 		this.eligibilityCriteria = eligibilityCriteria;
 		this.endDate = endDate;
@@ -102,7 +103,7 @@ public class Course implements Serializable {
 		this.status = status;
 		this.time = time;
 		this.teacher = teacher;
-		this.users = users;
+		this.fees=fees;
 	}
 
 
@@ -140,11 +141,11 @@ public class Course implements Serializable {
 	}
 
 	public String getName() {
-		return this.Name;
+		return this.name;
 	}
 
-	public void setName(String Name) {
-		this.Name = Name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	
@@ -239,26 +240,20 @@ public class Course implements Serializable {
 		this.teacher = teacher;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
+	
+
+	
+
+
+
+	public double getFees() {
+		return fees;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setCourse(this);
 
-		return user;
-	}
-
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setCourse(null);
-
-		return user;
+	public void setFees(double fees) {
+		this.fees = fees;
 	}
 
 
@@ -266,9 +261,9 @@ public class Course implements Serializable {
 	@Override
 	public String toString() {
 		return "Course [id=" + id + ", availability=" + availability + ", beginDate=" + beginDate
-				+ ", capacity=" + capacity + ", Name=" + Name +  ", duration=" + duration + ", eligibilityCriteria=" + eligibilityCriteria + ", endDate=" + endDate
+				+ ", capacity=" + capacity + ", name=" + name +  ", duration=" + duration + ", eligibilityCriteria=" + eligibilityCriteria + ", endDate=" + endDate
 				+ ", location=" + location + ", mode=" + mode + ", status=" + status + ", time=" + time + ", teacher="
-				+ teacher + ", users=" + users + "]";
+				+ teacher + ", fees=" + fees + "]";
 	}
 
 	

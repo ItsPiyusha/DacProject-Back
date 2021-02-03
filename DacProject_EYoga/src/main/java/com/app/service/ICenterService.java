@@ -9,11 +9,13 @@ public interface ICenterService {
 
 	  List<Center> getAllCenters();
 	  // get  details by name 
-	//Center getCenterDetails(String cname );
+	Center getCenterDetails(String cname );
 	Center getCenterDetailsById(int id);
 	  
 	  // add new  details 
 	Center addCenterDetails(Center transientPOJO);
+	
+	Center findByManager(int id);
 	  
 	
 	  // update existing  details 

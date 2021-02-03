@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the user database table.
@@ -48,13 +49,14 @@ public class User implements Serializable {
 		@Column(name="Role", length=45)
 	private String role;
 
-
+	
 //bi-directional many-to-one association to Course
-	@ManyToOne
-	@JoinColumn(name="CourseID")
-   @JsonBackReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(targetEntity = Course.class)
 
-	private Course course;
+	@JoinColumn(name="CourseID")
+    //@JsonBackReference
+   private Course course;
 
 	public User() {
 	}

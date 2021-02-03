@@ -80,4 +80,13 @@ public class ManagerServiceImpl implements IManagerService {
 		return "Manager with ID="+managerID+"deleted.";
 	}
 		 
+	@Override
+	  public Manager fetchManagerByEmailAndPassword(String email,String password){
+		  return dao.findByEmailAndPassword(email, password);
+	  }
+
+
+	
+	
+	
 }

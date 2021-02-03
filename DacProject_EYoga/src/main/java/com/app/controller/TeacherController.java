@@ -13,7 +13,7 @@ import com.app.service.ITeacherService;
 
 @RestController // => @Controller at class level +
 	//@ResponseBody annotation added on ret types of all req handling methods
-//@CrossOrigin(origins= {"http://localhost:4200"})
+@CrossOrigin(origins= {"http://localhost:4200"})
 @Validated
 	@RequestMapping("/teacher")
 	public class TeacherController {
@@ -28,6 +28,8 @@ import com.app.service.ITeacherService;
 
 		// RESTful end point or API end point or API provider
 		@GetMapping
+		@CrossOrigin(origins= {"http://localhost:4200"})
+
 		public ResponseEntity<?> listAllTeacher() {
 			System.out.println("in list all ");
 			// invoke service layer's method : controller --> service impl (p) --->JPA
@@ -42,6 +44,8 @@ import com.app.service.ITeacherService;
 
 		// get prduct details by its name : supplied by clnt using path var
 		@GetMapping("/{teacherId}")
+		@CrossOrigin(origins= {"http://localhost:4200"})
+
 		public ResponseEntity<?> getTeacherDetailsById(@PathVariable int teacherId) {
 		System.out.println("in get  details " + teacherId);
 			// invoke service method
@@ -53,12 +57,11 @@ import com.app.service.ITeacherService;
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		
-
-		
-		  // req handling method to create a new product : post
+		 // req handling method to create a new product : post
 		  
 		  @PostMapping 
+		  @CrossOrigin(origins= {"http://localhost:4200"})
+
 		  public ResponseEntity<?> addTeacherDetails(@RequestBody @Valid Teacher p)
 		  {
 		  System.out.println("in add  " + p); 
@@ -79,7 +82,9 @@ import com.app.service.ITeacherService;
 		  
 		  // req handling method to update existing product
 		  
-		 @PutMapping("/{teacherID}") 
+		 @PutMapping("/update/{teacherID}") 
+		 @CrossOrigin(origins= {"http://localhost:4200"})
+
 		    public ResponseEntity<?> updateTeacherDetails(@PathVariable int teacherID, @RequestBody Teacher p) 
 		 {
 		  System.out.println("in update " + teacherID + " " + p); 
@@ -95,6 +100,8 @@ import com.app.service.ITeacherService;
 		  
 		 }
 		 @DeleteMapping("/{teacherID}")
+		 @CrossOrigin(origins= {"http://localhost:4200"})
+
 		 public String deleteTeacher(@PathVariable int teacherID)
 		 {
 			 System.out.println("in delete center"+teacherID);

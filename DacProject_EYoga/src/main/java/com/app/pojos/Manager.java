@@ -6,12 +6,6 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotBlank;
 
-
-
-/**
- * The persistent class for the manager database table.
- * 
- */
 @Entity
 @Table(name="manager")
 @NamedQuery(name="Manager.findAll", query="SELECT m FROM Manager m")
@@ -55,7 +49,7 @@ public class Manager implements Serializable {
 	
 	//bi-directional one-to-one association to Center
 	
-	@OneToOne(mappedBy = "manager",cascade = CascadeType.ALL,orphanRemoval = true)	
+	@OneToOne(mappedBy = "manager")	
 	private Center center;
 
 	public Manager() {

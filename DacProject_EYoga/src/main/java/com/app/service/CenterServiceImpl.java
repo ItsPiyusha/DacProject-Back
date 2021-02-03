@@ -30,20 +30,22 @@ public class CenterServiceImpl implements ICenterService {
 	}
 
 	
-	//  @Override
-	//  public Center  getCenterDetails(String cname) 
-	 // { 
+	@Override
+	  public Center  getCenterDetails(String cname) 
+	 { 
 		  
-	//	  return dao.findByName(cname);
+	  return dao.findByName(cname);
 		  
 	  
-	//  }
+	  }
 	 
-	   @Override 
-		  public Center getCenterDetailsById(int id) 
-		  {
+		
+		  @Override 
+		  public Center getCenterDetailsById(int id)
+		  { 
 			  return dao.findById(id); 
 		  }
+		 
 		 
 
 	@Override //
@@ -61,7 +63,6 @@ public class CenterServiceImpl implements ICenterService {
 	  @Override 
 	  public Center updateCenterDetails(int centerID, Center p1) 
 	  { 
-		//	  chk if product exists : findById
 	  
 	 Center c=dao.findById(centerID); 
 	  if (c!=null) 
@@ -88,5 +89,12 @@ public class CenterServiceImpl implements ICenterService {
 			dao.deleteById(centerID);
 			return "Manager with ID="+centerID+"deleted.";
 		}
+
+
+	@Override
+	public Center findByManager(int id) {
+		return dao.findByManager(id);
+	}
 		 
+	  
 }
