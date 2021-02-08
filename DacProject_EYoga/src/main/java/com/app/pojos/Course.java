@@ -79,7 +79,7 @@ public class Course implements Serializable {
 	private Teacher teacher;
 
 	
-	//bi-directional many-to-one association to User
+	//bi-directional one-to-many association to User
 
 	public Course() {
 	}
