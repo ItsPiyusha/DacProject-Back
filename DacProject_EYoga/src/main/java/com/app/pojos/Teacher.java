@@ -50,7 +50,7 @@ public class Teacher implements Serializable {
 	
 
 
-	//bi-directional many-to-one association to Course
+	//bi-directional one-to-one association to Course
 	@OneToOne(mappedBy = "teacher",cascade = CascadeType.ALL)	
 	private Course course;
 
