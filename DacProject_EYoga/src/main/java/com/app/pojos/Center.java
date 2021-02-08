@@ -35,7 +35,7 @@ public class Center implements Serializable {
 
 	
 
-	//bi-directional many-to-one association to Teacher
+	//bi-directional one-to-many association to Teacher
 	@OneToMany(mappedBy="center")
 	
 
