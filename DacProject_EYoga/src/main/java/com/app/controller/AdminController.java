@@ -7,7 +7,7 @@ import com.app.pojos.Admin;
 import com.app.service.AdminServiceImpl;
 
 
-@RestController // => @Controller at class level +
+@RestController // => @Controller at class level + @ResponseBody auto added on  the ret type of request handling methods
 public class AdminController {
 	@Autowired
 	public AdminServiceImpl service;
